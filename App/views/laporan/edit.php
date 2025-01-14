@@ -12,7 +12,7 @@
       <select id="category" name="category" class="form-select" required>
         <option value="">-- Pilih kategori --</option>
         <option value="Operasional" <?= $data['laporan']['category'] == 'Operasional' ? 'selected' : ''; ?>>Operasional</option>
-        <option value="Investasi" <?= $data['laporan']['category'] == 'Investasi' ? 'selected' : ''; ?>>Investasi</option>
+        <option value="Inventasi" <?= $data['laporan']['category'] == 'Inventasi' ? 'selected' : ''; ?>>Investasi</option>
       </select>
     </div>
 

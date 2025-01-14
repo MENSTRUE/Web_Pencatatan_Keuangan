@@ -36,7 +36,8 @@
                 <td><?= htmlspecialchars($laporan['created_at']); ?></td>
                 <td>
                 <a href="<?= BASEURL ?>/laporan/edit/<?= $laporan['id_laporan']; ?>" class="btn btn-warning" aria-label="Edit Laporan">Edit</a>
-                <a href="<?= BASEURL ?>/laporan/delete/" class="btn btn-danger" aria-label="Delete Laporan" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                <a href="<?= BASEURL ?>/laporan/delete/<?= $laporan['id_laporan'] ?>" class="btn btn-danger" aria-label="Delete Laporan" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+
                 </td>
             </tr>
         <?php endforeach; ?>

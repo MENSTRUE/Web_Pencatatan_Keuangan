@@ -18,6 +18,20 @@ class Laporan extends Controller {
         $this->view('laporan/edit', $data);
         $this->view('templates/footer');
     }
+
+    public function delete($id_laporan) {
+        if ($this->model('Laporan_model')->deleteLaporan($id_laporan) > 0) {
+            Flasher::setFlash('success', 'Data berhasil dihapus');
+            header('Location: ' . BASEURL . '/laporan');
+            exit;
+        } else {
+            Flasher::setFlash('danger', 'Data gagal dihapus');
+            header('Location: ' . BASEURL . '/laporan');
+            exit;
+        }
+    }
+    
+    
     
     
 
@@ -32,5 +46,7 @@ class Laporan extends Controller {
             exit;
         }
     }
-
+    
+    
+    
 }
