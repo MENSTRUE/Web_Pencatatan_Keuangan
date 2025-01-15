@@ -14,4 +14,46 @@ class User_model {
         $this->db->bind('email', $email);
         return $this->db->single();  // Mengembalikan satu hasil data
     }
+
+    // Ambil semua user dengan role karyawan
+    public function getAllKaryawan() {
+        $this->db->query("SELECT * FROM {$this->table} WHERE role = 'karyawan'");
+        return $this->db->resultSet();  // Mengembalikan semua hasil data karyawan
+    }
+
+    // Ambil user berdasarkan user_id
+    public function getUserById($user_id) {
+        $this->db->query("SELECT * FROM {$this->table} WHERE user_id = :user_id");
+        $this->db->bind('user_id', $user_id);
+        return $this->db->single();
+    }
+
+    // Menambahkan user baru ke dalam database
+    public function insertUser($name, $email, $password, $role) {
+        $this->db->query("INSERT INTO {$this->table} (name, email, password, role, created_at, updated_at) VALUES (:name, :email, :password, :role, NOW(), NOW())");
+        $this->db->bind('name', $name);
+        $this->db->bind('email', $email);
+        $this->db->bind('password', $password);
+        $this->db->bind('role', $role);
+        return $this->db->execute();
+    }
+
+    // Update data user
+    public function updateUser($user_id, $name, $email, $password, $role) {
+        $this->db->query("UPDATE {$this->table} SET name = :name, email = :email, password = :password, role = :role, updated_at = NOW() WHERE user_id = :user_id");
+        $this->db->bind('user_id', $user_id);
+        $this->db->bind('name', $name);
+        $this->db->bind('email', $email);
+        $this->db->bind('password', $password);
+        $this->db->bind('role', $role);
+        return $this->db->execute();
+    }
+
+    // Hapus user berdasarkan user_id
+    public function deleteUser($user_id) {
+        $this->db->query("DELETE FROM {$this->table} WHERE user_id = :user_id");
+        $this->db->bind('user_id', $user_id);
+        return $this->db->execute();
+    }
 }
+?>

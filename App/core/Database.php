@@ -65,10 +65,23 @@ public function resultSet(){
 public function single(){
     $this->execute();
     return $this->stmt->fetch(PDO::FETCH_ASSOC);
-}
+} 
 
 public function rowCount(){
     return $this->stmt->rowCount();
 }
+
+public function prepare($query)
+{
+    $this->stmt = $this->dbh->prepare($query);
+}
+
+public function fetch($fetchStyle = PDO::FETCH_ASSOC)
+{
+    $this->execute(); // Eksekusi statement sebelum fetch
+    return $this->stmt->fetch($fetchStyle);
+}
+
+
 
 }

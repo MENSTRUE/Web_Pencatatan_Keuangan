@@ -45,7 +45,7 @@ class Create extends Controller {
             if ($model->createLaporan($data)) {
                 header('Location: ' . BASEURL . '/laporan');
             } else {
-                header('Location: ' . BASEURL . '/create');
+                header('Location: ' . BASEURL . '/laporan');
             }
             exit;
         }

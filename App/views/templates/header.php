@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman <?= $data['judul']; ?></title>
     <link href="<?= BASEURL; ?>/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
     <style>
         /* Gaya khusus untuk sidebar */
         .sidebar {
@@ -51,14 +53,34 @@
             box-sizing: border-box;
             margin-top: 20px;
         }
+
+        .receipt {
+            border: 1px dashed black;
+            padding: 20px;
+            width: 300px;
+            margin: 0 auto;
+        }
+        .receipt-header,
+        .receipt-footer {
+            text-align: center;
+        }
+        .receipt-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .receipt-item strong {
+            text-align: right;
+        }
     </style>
 </head>
 <body>
     <div class="sidebar">
-        <h2><?= isset($_SESSION['role']) ? $_SESSION['role'] : 'Guest'; ?></h2>
+        <h2><?= isset($_SESSION['role']) ? $_SESSION['role'] : ''; ?></h2>
         <?php if (isset($_SESSION['user_id'])): ?>
                 <a href="<?= BASEURL; ?>/dasboard">Dasboard</a>
                 <a href="<?= BASEURL; ?>/laporan">Laporan</a>
+                <a href="<?= BASEURL; ?>/karyawan">Karyawan</a>
                 <a href="<?= BASEURL; ?>/login/logout">Logout</a>
         <?php else: ?>
                 <a href="<?= BASEURL; ?>/login">Login</a>
