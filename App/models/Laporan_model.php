@@ -1,6 +1,7 @@
 <?php
 class Laporan_model {
     private $table = 'laporan';
+    private $users = 'users';
     private $db;
 
     public function __construct() {
@@ -56,7 +57,37 @@ class Laporan_model {
         $this->db->execute();
         return $this->db->rowCount();
     }
+
+        // Ambil nama berdasarkan user_id
+        public function getNameByUserId($user_id) {
+            $this->db->query("SELECT name FROM " . $this->users . " WHERE user_id = :user_id");
+            $this->db->bind('user_id', $user_id);
+            return $this->db->single();
+        }
+
+        // Ambil role berdasarkan user_id
+        public function getRoleByUserId($user_id) {
+            $this->db->query("SELECT role FROM " . $this->users . " WHERE user_id = :user_id");
+            $this->db->bind('user_id', $user_id);
+            return $this->db->single();
+        }
     
+        // Ambil detail laporan beserta nama dan role berdasarkan user_id
+        public function getLaporanWithUserDetails($id_laporan) {
+            $query = "SELECT 
+                        laporan.*, 
+                        users.name, 
+                        users.role 
+                    FROM " . $this->table . " 
+                    JOIN " . $this->users . " ON laporan.user_id = users.user_id 
+                    WHERE laporan.id_laporan = :id_laporan";
+
+            $this->db->query($query);
+            $this->db->bind('id_laporan', $id_laporan);
+            
+            return $this->db->single();  // Mengembalikan hasil dengan data dari tabel laporan dan users
+        }
+
     public function getById($id_laporan)
     {
         $this->db->prepare("SELECT * FROM laporan WHERE id_laporan = :id_laporan");

@@ -54,23 +54,42 @@
             margin-top: 20px;
         }
 
+        /* Tampilan Receipt yang lebih lebar */
         .receipt {
-            border: 1px dashed black;
+            border: 1px solid #dee2e6;
             padding: 20px;
-            width: 300px;
+            max-width: 900px; /* Lebar landscape */
             margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        .receipt-header,
-        .receipt-footer {
+
+        /* Header dan Footer Receipt */
+        .receipt-header, .receipt-footer {
             text-align: center;
         }
+
+        /* Styling untuk setiap item receipt */
         .receipt-item {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 15px; /* Menambah jarak antar item */
+            font-size: 1.1rem; /* Ukuran font yang lebih besar */
         }
+
+        .receipt-item span {
+            font-weight: bold;
+        }
+
         .receipt-item strong {
             text-align: right;
+        }
+
+        .receipt-footer p {
+            margin-top: 20px;
+            color: #28a745;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -78,12 +97,14 @@
     <div class="sidebar">
         <h2><?= isset($_SESSION['role']) ? $_SESSION['role'] : ''; ?></h2>
         <?php if (isset($_SESSION['user_id'])): ?>
-                <a href="<?= BASEURL; ?>/dasboard">Dasboard</a>
-                <a href="<?= BASEURL; ?>/laporan">Laporan</a>
+            <a href="<?= BASEURL; ?>/dasboard">Dasboard</a>
+            <a href="<?= BASEURL; ?>/laporan">Laporan</a>
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
                 <a href="<?= BASEURL; ?>/karyawan">Karyawan</a>
-                <a href="<?= BASEURL; ?>/login/logout">Logout</a>
+            <?php endif; ?>
+            <a href="<?= BASEURL; ?>/login/logout">Logout</a>
         <?php else: ?>
-                <a href="<?= BASEURL; ?>/login">Login</a>
+            <a href="<?= BASEURL; ?>/login">Login</a>
         <?php endif; ?>
 
     </div>

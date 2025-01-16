@@ -31,61 +31,59 @@ class Laporan extends Controller {
         }
     }
 
-    public function detail($id_laporan)
-        {
-            $laporan = $this->model('Laporan_model')->getById($id_laporan);
-
-            if (!$laporan) {
-                die('Laporan tidak ditemukan.'); // Berikan pesan error jika data tidak ada
-            }
-
-            $this->view('templates/header');
-            $this->view('laporan/detail', ['laporan' => $laporan]);
-            $this->view('templates/footer');
-
+    public function detail($id_laporan) {
+        $laporan = $this->model('Laporan_model')->getById($id_laporan);
+        $laporan = $this->model('Laporan_model')->getLaporanWithUserDetails($id_laporan);
+    
+        if (!$laporan) {
+            die('Laporan tidak ditemukan.'); // Berikan pesan error jika data tidak ada
         }
     
+        // Ambil nama dan role berdasarkan user_id
+        $user_id = $laporan['user_id']; // Ambil user_id dari laporan
+        $laporan['name'] = $this->model('Laporan_model')->getNameByUserId($user_id)['name'];
+        $laporan['role'] = $this->model('Laporan_model')->getRoleByUserId($user_id)['role'];
     
-    
-    
-
-    public function update()
-{
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $id_laporan = $_POST['id_laporan'];
-        $amount_approved = $_POST['amount_approved'] ?? null;
-        $action = $_POST['action'] ?? '';
-
-        if ($_SESSION['role'] === 'admin' && $action === 'approve' && empty($amount_approved)) {
-            // Redirect kembali dengan pesan error jika amount_approved kosong
-            $_SESSION['error'] = 'Amount Approved is required when approving.';
-            header('Location: ' . BASEURL . '/laporan/edit/' . $id_laporan);
-            exit;
-        }
-
-        // Data untuk update laporan
-        $data = [
-            'id_laporan' => $id_laporan,
-            'category' => $_POST['category'],
-            'type' => $_POST['type'],
-            'amount' => $_POST['amount'],
-            'description' => $_POST['description'],
-            'updated_at' => $_POST['updated_at'],
-            'amount_approved' => $amount_approved,
-            'status' => $action === 'approve' ? 'approved' : 'pending',
-        ];
-
-        $model = $this->model('Laporan_model');
-        if ($model->updateLaporan($data)) {
-            $_SESSION['success'] = 'Laporan updated successfully.';
-            header('Location: ' . BASEURL . '/laporan');
-        } else {
-            $_SESSION['error'] = 'Failed to update laporan.';
-            header('Location: ' . BASEURL . '/laporan/edit/' . $id_laporan);
-        }
-        exit;
+        $data['judul'] = 'Detail Laporan';
+        $this->view('templates/header', $data);
+        $this->view('laporan/detail', ['laporan' => $laporan]);
+        $this->view('templates/footer');
     }
-}
+    
+    
+    
+    
+    
+
+        public function update() {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $id_laporan = $_POST['id_laporan'];
+                
+                // Data untuk update laporan
+                $data = [
+                    'id_laporan' => $id_laporan,
+                    'category' => $_POST['category'],
+                    'type' => $_POST['type'],
+                    'amount' => $_POST['amount'],
+                    'description' => $_POST['description'],
+                    'updated_at' => $_POST['updated_at'],
+                    'amount_approved' => $_POST['amount_approved'] ?? null,
+                    'status' => $_POST['status'] ?? 'pending', // Tangkap status dari form
+                ];
+        
+                // Simpan ke database
+                $model = $this->model('Laporan_model');
+                if ($model->updateLaporan($data)) {
+                    $_SESSION['success'] = 'Laporan updated successfully.';
+                    header('Location: ' . BASEURL . '/laporan');
+                } else {
+                    $_SESSION['error'] = 'Failed to update laporan.';
+                    header('Location: ' . BASEURL . '/laporan/edit/' . $id_laporan);
+                }
+                exit;
+            }
+        }
+        
 
     }
     

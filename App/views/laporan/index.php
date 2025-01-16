@@ -29,7 +29,7 @@ $userRole = $_SESSION['role'] ?? 'guest'; // Default ke 'guest' jika tidak ada s
             <th scope="col">Description</th>
             <th scope="col">Status</th>
             <th scope="col">Created At</th>
-            <th scope="col" class="d-flex gap-2">Actions</th>
+            <th scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -48,11 +48,11 @@ $userRole = $_SESSION['role'] ?? 'guest'; // Default ke 'guest' jika tidak ada s
                     <!-- Status Berdasarkan amount_approved dan status -->
                     <?php if (!empty($laporan['amount_approved'])): ?>
                         <span class="badge bg-success">Approved</span>
-                    <?php elseif ($laporan['status'] == ''): ?>
-                        <span class="badge bg-warning text-dark"><?= htmlspecialchars($laporan['status']); ?>pending</span>
+                    <?php elseif ($laporan['status'] == 'pending'): ?>
+                        <span class="badge bg-warning text-dark"><?= htmlspecialchars($laporan['status']); ?></span>
                     <?php elseif ($laporan['status'] == 'disapproved'): ?>
                         <span class="badge bg-danger">Disapproved</span>
-                    <?php elseif ($laporan['amount_approved'] == '' || $laporan['status'] == 'disapproved'): ?>
+                    <?php elseif ($laporan['amount_approved'] == 'Null' || $laporan['status'] == 'disapproved'): ?>
                         <span class="badge bg-danger">Disapproved</span>
                     <?php else: ?>
                         <span class="badge bg-secondary"><?= htmlspecialchars($laporan['status']); ?></span>
@@ -60,7 +60,7 @@ $userRole = $_SESSION['role'] ?? 'guest'; // Default ke 'guest' jika tidak ada s
                 </td>
 
                 <td><?= htmlspecialchars($laporan['created_at']); ?></td>
-                <td class="d-flex gap-2">
+                <td>
                         <a href="<?= BASEURL ?>/laporan/detail/<?= $laporan['id_laporan']; ?>" class="btn btn-info" aria-label="Detail Laporan">
                             <i class="fas fa-info-circle"></i>
                         </a>
