@@ -48,9 +48,9 @@ Berikut adalah gambaran umum tampilan antarmuka aplikasi:
 
 6.  **Aktivitas Karyawan (Admin):**
     * Tabel yang menampilkan log aktivitas laporan dengan `User ID`, `ID Laporan`, `Category`, `Type`, `Amount`, `Amount Approved`, `Description`, `Status`, `Created At`, dan `Updated At`.
-    * ![Aktivitas Karyawan (Admin) - Detail](Screenshot%2025-06-26%20074253.png)
+    * ![Aktivitas Karyawan (Admin) - Detail](Screenshot%202025-06-26%20074253.png)
     * Tabel yang menampilkan log aktivitas laporan dengan `Role`, `Category Name`, `Amount`, `Amount Approved`, `Transaction Type`, `Description`, `Status`, `Created At`, dan `Actions` (lihat, edit, hapus).
-    * ![Aktivitas Karyawan (Admin) - Ringkasan](Screenshot%2025-06-26%20074306.png)
+    * ![Aktivitas Karyawan (Admin) - Ringkasan](Screenshot%202025-06-26%20074306.png)
 
 ---
 
