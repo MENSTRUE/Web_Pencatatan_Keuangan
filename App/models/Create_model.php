@@ -69,4 +69,12 @@ class Create_model {
         $result = $this->db->single();
         return $result ? $result['role'] : 'Unknown';  // Jika role tidak ditemukan, kembalikan 'Unknown'
     }
+
+    public function searchLaporan($search) {
+        $sql = "SELECT * FROM laporan WHERE category LIKE :search OR type LIKE :search";
+        $this->db->query($sql);
+        $this->db->bind(':search', "%$search%");
+        return $this->db->resultSet();
+    }
+    
 }

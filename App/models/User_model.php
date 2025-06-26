@@ -55,5 +55,37 @@ class User_model {
         $this->db->bind('user_id', $user_id);
         return $this->db->execute();
     }
+
+    public function updateUserProfile($user_id, $name, $email, $password, $alamat, $nomor_telepon, $profile_picture) {
+        $sql = "UPDATE users SET name = :name, email = :email, alamat = :alamat, nomor_telepon = :nomor_telepon";
+    
+        if (!empty($password)) {
+            $sql .= ", password = :password";
+        }
+    
+        if (!empty($profile_picture)) {
+            $sql .= ", profile_picture = :profile_picture";
+        }
+    
+        $sql .= " WHERE user_id = :user_id";
+    
+        $this->db->query($sql);
+        $this->db->bind('user_id', $user_id);
+        $this->db->bind('name', $name);
+        $this->db->bind('email', $email);
+        $this->db->bind('alamat', $alamat);
+        $this->db->bind('nomor_telepon', $nomor_telepon);
+    
+        if (!empty($password)) {
+            $this->db->bind('password', $password);
+        }
+    
+        if (!empty($profile_picture)) {
+            $this->db->bind('profile_picture', $profile_picture);
+        }
+    
+        return $this->db->execute();
+    }
+    
 }
 ?>

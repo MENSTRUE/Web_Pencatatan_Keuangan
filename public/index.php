@@ -6,6 +6,8 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 require_once '../app/init.php';
+require_once '../vendor/autoload.php'; // Pastikan Dompdf ter-autoload
+
 
 // Membuat objek App dan memulai aplikasi
 $app = new App;

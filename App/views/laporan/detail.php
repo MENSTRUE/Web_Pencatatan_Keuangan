@@ -52,6 +52,10 @@
         <!-- Tombol Back ke Laporan -->
         <div class="text-center">
             <a href="<?= BASEURL; ?>/laporan" class="btn btn-primary" style="margin-top: 20px;">Back to Laporan</a>
+            <!-- <a href="<?= BASEURL; ?>/laporan/downloadInvoice/<?= $laporan['id_laporan']; ?>" class="btn btn-success" style="margin-top: 20px;">Download Invoice</a> -->
+
         </div>
+        
     </div>
 </div>
+z

@@ -4,6 +4,8 @@ class Laporan_model {
     private $users = 'users';
     private $db;
 
+    
+
     public function __construct() {
         $this->db = new Database;
     }
@@ -12,6 +14,17 @@ class Laporan_model {
         $this->db->query("SELECT * FROM " . $this->table . " WHERE id_laporan = :id_laporan");
         $this->db->bind('id_laporan', $id_laporan);
         return $this->db->single();
+    }
+    
+    public function getLaporanByUserId($user_id) {
+        $query = "SELECT laporan.*, users.name, users.role 
+                  FROM laporan 
+                  LEFT JOIN users ON laporan.user_id = users.user_id 
+                  WHERE laporan.user_id = :user_id 
+                  ORDER BY laporan.created_at DESC";
+        $this->db->query($query);
+        $this->db->bind('user_id', $user_id);
+        return $this->db->resultSet();
     }
     
 
@@ -96,6 +109,14 @@ class Laporan_model {
     }
 
 
+    public function searchLaporanByUserId($search, $user_id) {
+        $sql = "SELECT * FROM laporan WHERE user_id = :user_id AND (category LIKE :search OR type LIKE :search)";
+        $this->db->query($sql);
+        $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':search', "%$search%");
+        return $this->db->resultSet();
+    }
+    
     
     
     

@@ -21,7 +21,6 @@ $userRole = $_SESSION['role'] ?? 'guest'; // Default ke 'guest' jika tidak ada s
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">Role</th>
-            <th scope="col">Created At</th>
             <th scope="col" class="d-flex gap-2">Actions</th>
         </tr>
     </thead>
@@ -33,7 +32,6 @@ $userRole = $_SESSION['role'] ?? 'guest'; // Default ke 'guest' jika tidak ada s
                 <td><?= htmlspecialchars($karyawan['name']); ?></td>
                 <td><?= htmlspecialchars($karyawan['email']); ?></td>
                 <td><?= htmlspecialchars($karyawan['role']); ?></td>
-                <td><?= htmlspecialchars($karyawan['created_at']); ?></td>
                 <td class="d-flex gap-2">
                     <a href="<?= BASEURL ?>/karyawan/edit/<?= $karyawan['user_id']; ?>" class="btn btn-warning">
                         <i class="fas fa-edit"></i>
